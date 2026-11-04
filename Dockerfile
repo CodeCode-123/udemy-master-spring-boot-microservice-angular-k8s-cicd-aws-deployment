@@ -17,9 +17,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y docker-ce-cli \
     && rm -rf /var/lib/apt/lists/* \
 
-# Add jenkins user to the root group to ensure it can access the mounted socket
-RUN usermod -aG root jenkins
-
 # Switch back to the default jenkins user
 USER jenkins
 
