@@ -1,11 +1,8 @@
 version: '3.8'
 services:
   jenkins:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: jenkins-server
-    privileged: true
     user: root # Needed on macOS to read/write to the mounted docker.sock without permission errors
     restart: unless-stopped
     ports:
