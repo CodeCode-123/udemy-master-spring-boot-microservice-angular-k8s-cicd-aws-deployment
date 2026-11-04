@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurantlistingapp
+  labels:
+    app: restaurantlistingapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurantlistingapp
+  template:
+    metadata:
+      labels:
+        app: restaurantlistingapp
+    spec:
+      containers:
+        - name: restaurantlistingapp
+          image: codecode123/restaurantlisting-arm-cicd:0.0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9081
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mysql-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mysql-password
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: restaurantdb_url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restaurantlisting-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 9081
+      targetPort: 9081
+  selector:
+    app: restaurantlistingapp

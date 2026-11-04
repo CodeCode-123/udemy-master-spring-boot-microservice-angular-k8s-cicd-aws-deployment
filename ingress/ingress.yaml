@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: angular-service
+                port:
+                  number: 80
+
+          - path: /restaurant
+            pathType: Prefix
+            backend:
+              service:
+                name: restaurantlisting-service
+                port:
+                  number: 9081
+
+          - path: /foodCatalogue
+            pathType: Prefix
+            backend:
+              service:
+                name: foodcatalogue-service
+                port:
+                  number: 9082
+
+          - path: /order
+            pathType: Prefix
+            backend:
+              service:
+                name: order-service
+                port:
+                  number: 9084
+
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: user-service
+                port:
+                  number: 9083
