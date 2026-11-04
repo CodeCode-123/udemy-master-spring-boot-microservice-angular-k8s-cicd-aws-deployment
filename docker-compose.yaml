@@ -1,9 +1,10 @@
 version: '3.8'
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk25
+    build: .
     container_name: jenkins-server
     restart: unless-stopped
+    user: "jenkins"
     ports:
       - "8080:8080"
       - "50000:50000"
