@@ -3,7 +3,7 @@ services:
   jenkins:
     build: .
     container_name: jenkins-server
-#    user: root # Needed on macOS to read/write to the mounted docker.sock without permission errors
+    user: "jenkins" # Needed on macOS to read/write to the mounted docker.sock without permission errors
     restart: unless-stopped
     ports:
       - "8080:8080"
