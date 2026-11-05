@@ -8,7 +8,7 @@ services:
 #    user: root
     build: .
     container_name: jenkins-server
-    user: root
+    user: "jenkins"
     privileged: true
     restart: unless-stopped
     ports:
@@ -16,7 +16,7 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+#      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   jenkins_home:
