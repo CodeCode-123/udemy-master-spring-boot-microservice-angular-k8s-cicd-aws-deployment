@@ -9,12 +9,7 @@ services:
     build: .
     container_name: jenkins-server
     user: root
-      # Overriding the entrypoint allows us to fix the socket permission before Jenkins starts
-    entrypoint: >
-        /bin/sh -c "
-        chmod 666 /var/run/docker.sock &&
-        exec /usr/local/bin/jenkins.sh
-        "
+    privileged: true
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -22,8 +17,6 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      # Ensure the docker CLI is available inside the container if needed
-      - /usr/local/bin/docker:/usr/usr/bin/docker
 
 volumes:
   jenkins_home:
