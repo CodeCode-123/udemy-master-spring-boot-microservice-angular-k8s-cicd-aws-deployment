@@ -1,16 +1,21 @@
 version: '3.8'
 services:
   jenkins:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins-server
-    user: "jenkins" # Needed on macOS to read/write to the mounted docker.sock without permission errors
+    user: root
+#    build: .
+#    container_name: jenkins-server
+#    user: "jenkins" # Needed on macOS to read/write to the mounted docker.sock without permission errors
     restart: unless-stopped
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-#      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   jenkins_home:
