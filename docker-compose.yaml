@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     container_name: jenkins-server
     user: root
-    # Ensure it targets the native arm64 platform for your M2 Max chip
-    platform: linux/arm64
 #    build: .
 #    container_name: jenkins-server
 #    user: "jenkins" # Needed on macOS to read/write to the mounted docker.sock without permission errors
@@ -18,6 +16,8 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
 
 volumes:
   jenkins_home:

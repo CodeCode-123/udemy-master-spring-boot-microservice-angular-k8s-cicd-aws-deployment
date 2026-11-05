@@ -3,25 +3,22 @@ FROM jenkins/jenkins:lts-jdk25
 # Switch to root user to install packages with apt
 USER root
 
-# 1. Update packages and install libatomic1
+# Update apt and install libatomic1 and curl/apt-transport prerequisites
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libatomic1 curl && \
+    apt-get install -y --no-install-recommends \
+    libatomic1 \
+    curl \
+    ca-certificates \
+    gnupg \
+    lsb-release && \
     rm -rf /var/lib/apt/lists/*
 
-# 2. Download and install static Docker CLI binary for arm64 (Apple Silicon)
-# Adjust the version string below if you need a specific Docker version
-ARG DOCKER_VERSION="27.3.1"
-RUN curl -fsSL "https://docker.com{DOCKER_VERSION}.tgz" -o /tmp/docker.tgz && \
-    tar -xzf /tmp/docker.tgz -C /tmp && \
-    mv /tmp/docker/docker /usr/local/bin/docker && \
-    chmod +x /usr/local/bin/docker && \
-    rm -rf /tmp/docker /tmp/docker.tgz
-
-# 3. Create a docker group matching typical GIDs and add the jenkins user to it
-# Note: On macOS, Docker Desktop uses root-like permissions on the socket,
-# but setting up the group structure ensures pipeline execution scripts remain portable.
-RUN groupadd -g 999 docker || true && \
-    usermod -aG docker jenkins
+# Install Docker CLI (using Debian/Ubuntu official Docker repo or ://docker.com script)
+RUN curl -fsSL https://://docker.com -o get-docker.sh && \
+    sh get-docker.sh --dry-run || true && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli && \
+    rm -rf get-docker.sh /var/lib/apt/lists/*
 
 ## Install prerequisites, Docker CLI repository, and libatomic1
 #RUN apt-get update && apt-get install -y --no-install-recommends libatomic1 \
