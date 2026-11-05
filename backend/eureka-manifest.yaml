@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: eureka
-          image: codecode123/eureka-arm-cicd:0.0.1
+          image: codecode123/eureka-arm-cicd:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761

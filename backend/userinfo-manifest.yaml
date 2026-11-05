@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: userapp
-          image: codecode123/userinfo-arm-cicd:0.0.1
+          image: codecode123/userinfo-arm-cicd:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9083
