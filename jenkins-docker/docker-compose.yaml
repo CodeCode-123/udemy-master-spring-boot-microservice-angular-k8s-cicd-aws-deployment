@@ -6,7 +6,7 @@ services:
 #      dockerfile: Dockerfile
 #    container_name: jenkins-server
 #    user: root
-    build: .
+    build: ..
     container_name: jenkins-server
     user: "jenkins"
     privileged: true
