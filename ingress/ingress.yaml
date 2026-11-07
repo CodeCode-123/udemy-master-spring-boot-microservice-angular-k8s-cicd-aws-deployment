@@ -13,7 +13,7 @@ spec:
               service:
                 name: angular-service
                 port:
-                  number: 4200
+                  number: 80
 
           - path: /restaurant
             pathType: Prefix

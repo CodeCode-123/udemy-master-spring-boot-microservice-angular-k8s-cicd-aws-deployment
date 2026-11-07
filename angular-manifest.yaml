@@ -17,7 +17,7 @@ spec:
           image: codecode123/food-delivery-app-fe-arm-cicd:19
           imagePullPolicy: Always
           ports:
-            - containerPort: 4200
+            - containerPort: 80
 
 ---
 apiVersion: v1
@@ -30,5 +30,5 @@ spec:
     app: angularapp
   ports:
     - protocol: TCP
-      port: 4200
-      targetPort: 4200
+      port: 80
+      targetPort: 80
