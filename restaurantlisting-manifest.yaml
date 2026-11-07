@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: restaurantlistingapp
-          image: codecode123/restaurantlisting-arm-cicd:38
+          image: codecode123/restaurantlisting-arm-cicd:39
           imagePullPolicy: Always
           ports:
             - containerPort: 9081
