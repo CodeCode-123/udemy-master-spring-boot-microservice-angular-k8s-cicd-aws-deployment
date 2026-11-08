@@ -14,7 +14,7 @@ spec:
     namespace: default
   source:
     repoURL: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git'
-#    path: ./aws
+    path: .
     targetRevision: HEAD
     directory:
       recurse: true
